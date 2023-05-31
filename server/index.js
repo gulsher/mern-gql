@@ -4,7 +4,13 @@ const app = express();
 require('dotenv').config();
 const port = process.env.PORT || 5000
 const schema = require('./schema/schema');
+const colors = require('colors');
+const connectDB = require('./config/db');
 
+
+//connect to db
+
+connectDB();
 
 app.use("/graphql",graphqlHTTP({
     schema: schema,
