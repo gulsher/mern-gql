@@ -73,6 +73,33 @@ const RootQuery = new GraphQLObjectType({
 })
 
 
+//mutatations
+
+const mutatations = new GraphQLObjectType({
+    name:'Mutatations',
+    fields:()=>({
+        //add client
+        addClient:{
+            type:ClientType,
+            args:{
+                name:{type:GraphQLNonNull(GraphQLString)},
+                email:{type:GraphQLNonNull(GraphQLString)},
+                phone:{type:GraphQLNonNull(GraphQLString)},
+            },
+            resolve:(parent,args)=>{
+                const client = new Client({
+                    name:args.name,
+                    email:args.email,
+                    phone:args.phone
+                })
+                return client.save();
+            }
+        },
+        //delete client
+    })
+})
+
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation:mutatations
 })
