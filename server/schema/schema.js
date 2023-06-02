@@ -132,7 +132,18 @@ const mutatations = new GraphQLObjectType({
              })
              return project.save();
         },
-    }
+    },
+    //delete a project
+
+    deleteProject:{
+        type:ProjectType,
+        args:{
+            id:{type: GraphQLNonNull(GraphQLID)},
+        },
+        resolve:(parent,args)=>{
+            return Project.findByIdAndRemove(args.id); 
+       },
+    },
 })
 })
 
